@@ -1,7 +1,16 @@
-
+//Dependencies
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+//Routes
+//Components
+//Context
+//Pages
 function App() {
   return (
-    <p>hola</p>
+    <Router>
+      <Switch>
+        <Route exact path="/" component={LandingPage}/>
+      </Switch>
+    </Router>
   );
 }
 
