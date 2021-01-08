@@ -16,9 +16,9 @@ const MyForm = () => {
             <Form.Group>
                 <Form.Check type="checkbox" label="Check me out" />
             </Form.Group>
-            <Button class="submit-button btn" type="submit">
+            <Button className="submit-button btn" type="submit">
                 Ingresar
-             </Button>
+            </Button>
         </Form>
     )
 }
