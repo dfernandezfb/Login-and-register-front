@@ -1,6 +1,5 @@
 import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button'
-import MyForm from './../Form/MyForm'
+import FormLogin from '../FormLogin/FormLogin'
 
 const MyModal = (props) => {
     return (
@@ -16,7 +15,7 @@ const MyModal = (props) => {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <MyForm/>
+                <FormLogin/>
             </Modal.Body>
         </Modal>
     )

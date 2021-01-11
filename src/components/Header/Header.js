@@ -1,4 +1,5 @@
-import {useState} from 'react'
+import {useState, useContext} from 'react'
+import AuthContext from './../../context/Auth/authContext'
 import logo from "./../../assets/logo.png"
 import Navbar from 'react-bootstrap/Navbar'
 import MyModal from '../Modal/MyModal'
@@ -7,9 +8,10 @@ import './Header.css'
 
 const Header = () => {
     const [modalShow, setModalShow] = useState(false);
+    const {auth} = useContext(AuthContext);
 
-    return (
-        <header>
+    return (!auth ? (
+            <header>
             <Navbar className="d-flex justify-content-between">
                 <Navbar.Brand href="/">
                     <img
@@ -28,6 +30,10 @@ const Header = () => {
                 onHide={() => setModalShow(false)}
             />
         </header>
+    ) : (
+        <p>estoy autenticado</p>
+    )
+        
     );
 };
 

@@ -1,0 +1,11 @@
+*
+{
+    font-family: 'Bebas Neue', cursive;
+}
+.portada
+{
+    border-radius: .5rem;
+    width: 100%;
+    height: 535px;
+    margin-top: 20px
+}
