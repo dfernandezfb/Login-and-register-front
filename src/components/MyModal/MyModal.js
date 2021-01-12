@@ -14,7 +14,7 @@ const MyModal = ({body:Component,...props}) => {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Component/>
+                <Component onClose={props.onHide}/>
             </Modal.Body>
         </Modal>
     )

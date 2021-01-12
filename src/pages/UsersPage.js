@@ -8,7 +8,7 @@ import './../styles/UsersPage.css'
 
 const UsersPage = () => {
     const [modalShow, setModalShow] = useState(false);
-    const {getUsers, getUser, deleteUser,users, userSelected} = useContext(UserContext) 
+    const {getUsers, getUser, deleteUser,users} = useContext(UserContext) 
     useEffect(() => {
         getUsers();
     }, [])

@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import './FormEdit.css'
 
-const FormEdit = () => {
+const FormEdit = (props) => {
     const { userSelected, editUser } = useContext(UserContext)
     const [values, setValues] = useState({
         name: '',
@@ -35,6 +35,7 @@ const FormEdit = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         editUser(userSelected._id, values)
+        props.onClose();
     }
     return (
         <Form onSubmit={handleSubmit}>
