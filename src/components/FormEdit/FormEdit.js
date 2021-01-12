@@ -1,23 +1,19 @@
 import { useState, useContext } from 'react'
-import AuthContext from './../../context/Auth/authContext'
+import UserContext from './../../context/User/userContext'
 import Form from 'react-bootstrap/Form'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
-import './FormRegister.css'
+import './FormEdit.css'
 
-const FormRegister = () => {
-    const { register } = useContext(AuthContext);
-    const [values, setValues] = useState(
-        {
-            name: '',
-            lastname: '',
-            country: '',
-            email: '',
-            password: ''
-            // password2: ''
-        }
-    )
+const FormEdit = () => {
+    const {userSelected, editUser} = useContext(UserContext)
+    const [values, setValues] = useState({
+        name: userSelected.name,
+        lastname: userSelected.lastname,
+        country: userSelected.country,
+        email: userSelected.email
+    })
     const handleOnChange = (e) => {
         setValues(
             {
@@ -30,10 +26,10 @@ const FormRegister = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        register(values);
+        editUser(userSelected._id,values)
     }
     return (
-        <Form onSubmit={handleSubmit} className='form-register'>
+        <Form onSubmit={handleSubmit}>
             <Row>
                 <Col>
                     <Form.Group>
@@ -85,29 +81,11 @@ const FormRegister = () => {
                     onChange={handleOnChange}
                 />
             </Form.Group>
-            <Form.Group>
-                <Form.Label>Contraseña</Form.Label>
-                <Form.Control
-                    type='password'
-                    name='password'
-                    value={values.password}
-                    onChange={handleOnChange}
-                />
-            </Form.Group>
-            <Form.Group>
-                <Form.Label>Repetir contraseña</Form.Label>
-                <Form.Control
-                    type='password'
-                    name='password2'
-                    value={values.password2}
-                    onChange={handleOnChange}
-                />
-            </Form.Group>
             <Button className="submit-button btn" type="submit">
-                Registrarme
+                Editar
             </Button>
         </Form>
     )
 }
 
-export default FormRegister
+export default FormEdit

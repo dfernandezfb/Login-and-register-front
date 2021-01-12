@@ -2,7 +2,7 @@ import { useReducer } from 'react'
 import { useHistory } from 'react-router-dom'
 import AuthContext from './authContext'
 import authReducer from './authReducer'
-import clientAxios from './../../config/axios'
+import clientAxios from '../../config/Axios'
 import authToken from './../../config/token'
 import {
     SUCCESS_REGISTER,
@@ -11,19 +11,25 @@ import {
     LOGOUT,
     ERROR_LOGIN,
     TOKEN,
-    ERROR_TOKEN
+    ERROR_TOKEN,
+    LOADING
 } from './../../types/index'
 
 const AuthState = ({ children }) => {
     const initialState = {
         token: localStorage.getItem('token') || null,
-        user: {},
-        auth: false,
+        user: null,
+        loading: true,
         errorMsg: ''
     }
     const history = useHistory();
     const [state, dispatch] = useReducer(authReducer, initialState)
 
+    const isLoading = () => {
+        dispatch({
+            type: LOADING
+        })
+    }
     const login = async (data) => {
         try {
             const response = await clientAxios.post('/auth', data);
@@ -33,6 +39,9 @@ const AuthState = ({ children }) => {
                     payload: response.data
                 }
             )
+            setTimeout(() => {
+                isLoading()
+            }, 2000);
             history.push('/users')
         }
         catch (error) {
@@ -45,19 +54,18 @@ const AuthState = ({ children }) => {
     }
     const authUser = async () => {
         const token = localStorage.getItem('token');
-        if (token) {
-            authToken(token);
-        }
+        authToken(token);
         try {
             const response = await clientAxios.get('/auth')
-            console.log(response);
             dispatch(
                 {
                     type: TOKEN,
                     payload: response.data
                 }
-                )
-                console.log(state.auth);
+            )
+            setTimeout(() => {
+                isLoading()
+            }, 2000);
         }
         catch (error) {
             dispatch(
@@ -77,7 +85,10 @@ const AuthState = ({ children }) => {
                     payload: response.data
                 }
             )
-            history.push('/users');
+            setTimeout(() => {
+                isLoading()
+            }, 2000);
+            history.push('/users')
         }
         catch (error) {
             dispatch(
@@ -94,7 +105,9 @@ const AuthState = ({ children }) => {
                 type: LOGOUT
             }
         )
-        history.push('/') //en duda si hace falta, al actualizar re renderiza (probar)
+        setTimeout(() => {
+            isLoading()
+        }, 2000);
     }
 
     return (
@@ -102,7 +115,6 @@ const AuthState = ({ children }) => {
             value={{
                 token: state.token,
                 user: state.user,
-                auth: state.auth,
                 errorMsg: state.errorMsg,
                 login,
                 register,

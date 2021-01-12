@@ -5,12 +5,12 @@ import {
     ERROR_LOGIN,
     LOGOUT,
     TOKEN,
-    ERROR_TOKEN
+    ERROR_TOKEN,
+    LOADING
 } from './../../types/index'
 
 
 const authReducer = (state, action) => {
-    console.log(action);
     switch (action.type) {
         case SUCCESS_LOGIN:
         case SUCCESS_REGISTER:
@@ -19,37 +19,42 @@ const authReducer = (state, action) => {
                 ...state,
                 token: action.payload.token,
                 user: action.payload.user,
-                auth: true
+                loading: false
             });
         case ERROR_REGISTER:
             return ({
                 ...state,
-                errorMsg: action.payload
+                errorMsg: action.payload,
             });
         case ERROR_LOGIN:
             return ({
                 ...state,
-                errorMsg: action.payload
+                errorMsg: action.payload,
             });
         case LOGOUT:
             localStorage.removeItem('token')
             return ({
                 ...state,
-                auth: false,
-                user: {}
+                user: null,
+                token: null,
+                loading: false
             });
         case TOKEN:
-            console.log(action.payload);
             return ({
                 ...state,
                 user: action.payload.user,
-                auth: true
+                loading: false
             });
         case ERROR_TOKEN:
             return ({
                 ...state,
                 errorMsg: action.payload,
-                auth:false
+                user: null,
+            })
+        case LOADING:
+            return ({
+                ...state,
+                loading: true
             })
         default: return state;
     }

@@ -1,7 +1,6 @@
 import Modal from 'react-bootstrap/Modal'
-import FormLogin from '../FormLogin/FormLogin'
 
-const MyModal = (props) => {
+const MyModal = ({body:Component,...props}) => {
     return (
         <Modal
             {...props}
@@ -11,11 +10,11 @@ const MyModal = (props) => {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Ingresar
+                    {props.modalTitle}
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <FormLogin/>
+                <Component/>
             </Modal.Body>
         </Modal>
     )
