@@ -8,11 +8,11 @@ const LandingPage = () => {
     return (
         <Container>
             <Row>
-                <Col>
+                <Col md={6}>
                     <img className='portada' src={portada} alt='portada'/>
                 </Col>
-                <Col>
-                    <h3 className='mt-3'> Regístrate </h3>
+                <Col md={6}>
+                    <h3 className='mt-3 register-form'> Regístrate </h3>
                     <FormRegister/>
                 </Col>
             </Row>
