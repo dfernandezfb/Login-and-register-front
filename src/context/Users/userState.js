@@ -61,7 +61,6 @@ const UserState = ({ children }) => {
     const deleteUser = async (id) =>{
         try {
             const response = await clientAxios.delete(`/users/${id}`);
-            getUsers();
         } catch (error) {
             dispatch(
                 {

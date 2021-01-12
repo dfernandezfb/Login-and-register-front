@@ -1,30 +1,47 @@
-import { useState, useContext } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import AuthContext from '../../context/Auth/authContext'
 import Form from 'react-bootstrap/Form'
+import Alert from 'react-bootstrap/Alert'
 import Button from 'react-bootstrap/Button'
+import { validateLogin } from './../../validations/validations'
 import './FormLogin.css'
 
 const FormLogin = () => {
-    const {login} = useContext(AuthContext);
+    const { login, errorMsg } = useContext(AuthContext);
+    const [errors, setErrors] = useState({
+        email: null,
+        password: null,
+        request: null
+    })
     const [values, setValues] = useState(
         {
             email: '',
             password: ''
         }
     )
+    useEffect(() => {
+        setErrors({
+            email:errors.email,
+            password:errors.password,
+            request: errorMsg
+        })
+    }, [errors.email,errors.password,errorMsg])
     const handleOnChange = (e) => {
         setValues(
             {
                 ...values,
-                [e.target.name] : e.target.value
+                [e.target.name]: e.target.value
             }
         )
-        console.log(values);
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        login(values);
+        setErrors(validateLogin(values))
+        if (!errors.email && !errors.password) {
+            login(values);
+        }
+
     }
     return (
         <Form onSubmit={handleSubmit}>
@@ -36,6 +53,7 @@ const FormLogin = () => {
                     name='email'
                     value={values.email}
                     onChange={handleOnChange}
+                    required
                 />
             </Form.Group>
             <Form.Group>
@@ -45,11 +63,12 @@ const FormLogin = () => {
                     name='password'
                     value={values.password}
                     onChange={handleOnChange}
-                />
+                    required
+                    />
             </Form.Group>
-            {/* <Form.Group>
-                <Form.Check type="checkbox" label="Check me out" />
-            </Form.Group> */}
+            {!errors.email ? (null) : (<Alert variant='danger'>{errors.email}</Alert>)}
+            {!errors.password ? (null) : (<Alert variant='danger'>{errors.password}</Alert>)}
+            {!errors.request ? (null) : (<Alert variant='danger'>{errors.request}</Alert>)}
             <Button className="submit-button btn" type="submit">
                 Ingresar
             </Button>

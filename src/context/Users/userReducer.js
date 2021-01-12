@@ -2,7 +2,7 @@ import {
     GETUSER,
     GETUSERS,
     EDITUSER,
-    REQERROR
+    REQERROR,
 } from '../../types/index'
 
 
@@ -11,22 +11,22 @@ const userReducer = (state, action) => {
         case GETUSER:
             return ({
                 ...state,
-                userSelected:action.payload
+                userSelected: action.payload
             });
         case GETUSERS:
             return ({
                 ...state,
-                users:action.payload
+                users: action.payload
             });
         case EDITUSER:
             return ({
                 ...state,
-                errorMsg: action.payload,
+                users: state.users.map(user => user.id === action.payload.id ? action.payload : user)
             });
         case REQERROR:
-            return({
+            return ({
                 ...state,
-                errorMsg:action.payload
+                errorMsg: action.payload
             })
         default: return state;
     }

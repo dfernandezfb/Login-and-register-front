@@ -6,7 +6,8 @@ import {
     LOGOUT,
     TOKEN,
     ERROR_TOKEN,
-    LOADING
+    LOADING,
+    CLEARMSG
 } from './../../types/index'
 
 
@@ -55,6 +56,11 @@ const authReducer = (state, action) => {
             return ({
                 ...state,
                 loading: true
+            })
+        case CLEARMSG:
+            return ({
+                ...state,
+                errorMsg: ''
             })
         default: return state;
     }

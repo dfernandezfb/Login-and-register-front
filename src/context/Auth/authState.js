@@ -12,7 +12,8 @@ import {
     ERROR_LOGIN,
     TOKEN,
     ERROR_TOKEN,
-    LOADING
+    LOADING,
+    CLEARMSG
 } from './../../types/index'
 
 const AuthState = ({ children }) => {
@@ -25,6 +26,11 @@ const AuthState = ({ children }) => {
     const history = useHistory();
     const [state, dispatch] = useReducer(authReducer, initialState)
 
+    const clearMsg = () =>{
+        dispatch({
+            type:CLEARMSG
+        })
+    }
     const isLoading = () => {
         dispatch({
             type: LOADING
@@ -49,6 +55,7 @@ const AuthState = ({ children }) => {
                 type: ERROR_LOGIN,
                 payload: error.response.data.msg
             })
+            setTimeout(()=>clearMsg(),2000)
         }
 
     }
@@ -74,6 +81,7 @@ const AuthState = ({ children }) => {
                     payload: error.response.data.msg
                 }
             )
+            setTimeout(()=>clearMsg(),2000)
         }
     }
     const register = async (data) => {
@@ -97,6 +105,7 @@ const AuthState = ({ children }) => {
                     payload: error.response.data.msg
                 }
             )
+            setTimeout(()=>clearMsg(),2000)
         }
     }
     const logout = () => {

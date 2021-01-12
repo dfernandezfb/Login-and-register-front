@@ -3,15 +3,15 @@ import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import FormEdit from '../components/FormEdit/FormEdit'
 import MyModal from './../components/MyModal/MyModal'
-import UserContext from '../context/User/userContext'
+import UserContext from '../context/Users/userContext'
 import './../styles/UsersPage.css'
 
 const UsersPage = () => {
     const [modalShow, setModalShow] = useState(false);
-    const {getUsers, getUser, deleteUser,users} = useContext(UserContext) 
+    const {getUsers, getUser, deleteUser,users, userSelected} = useContext(UserContext) 
     useEffect(() => {
         getUsers();
-    }, [users])
+    }, [])
 
     const handleDelete = (e)=>{
         e.preventDefault();
@@ -70,7 +70,7 @@ const UsersPage = () => {
                 show={modalShow}
                 onHide={() => setModalShow(false)}
                 body={FormEdit}
-                modalTitle='Editar usuario'
+                modaltitle='Editar usuario'
             />
         </>
     )

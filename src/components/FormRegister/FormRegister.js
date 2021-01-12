@@ -1,23 +1,45 @@
-import { useState, useContext } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import AuthContext from './../../context/Auth/authContext'
 import Form from 'react-bootstrap/Form'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
+import Alert from 'react-bootstrap/Alert'
 import './FormRegister.css'
+import { validateRegister } from '../../validations/validations'
 
 const FormRegister = () => {
-    const { register } = useContext(AuthContext);
+    const { register, errorMsg } = useContext(AuthContext);
     const [values, setValues] = useState(
         {
             name: '',
             lastname: '',
             country: '',
             email: '',
-            password: ''
-            // password2: ''
+            password: '',
+            password2: ''
         }
-    )
+        )
+        const [errors, setErrors] = useState({
+            name:null,
+            lastname:null,
+            country:null,
+            email: null,
+            password: null,
+            password2:null,
+            request: null
+        })
+    useEffect(() => {
+        setErrors({
+            name:errors.name,
+            lastname:errors.lastname,
+            country:errors.country,
+            email:errors.email,
+            password:errors.password,
+            password2:errors.password2,
+            request: errorMsg
+        })
+    }, [errors.name,errors.lastname,errors.country,errors.email,errors.password,errors.password2,errorMsg])
     const handleOnChange = (e) => {
         setValues(
             {
@@ -30,7 +52,10 @@ const FormRegister = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        register(values);
+        setErrors(validateRegister(values))
+        if (!errors.email && !errors.password && !errors.lastname && !errors.name && !errors.password && !errors.password2) {
+            register(values);
+        }
     }
     return (
         <Form onSubmit={handleSubmit} className='form-register'>
@@ -43,6 +68,7 @@ const FormRegister = () => {
                             name='name'
                             value={values.name}
                             onChange={handleOnChange}
+                            required
                         />
                     </Form.Group>
                 </Col>
@@ -54,6 +80,7 @@ const FormRegister = () => {
                             name='lastname'
                             value={values.lastname}
                             onChange={handleOnChange}
+                            required
                         />
                     </Form.Group>
                 </Col>
@@ -65,6 +92,7 @@ const FormRegister = () => {
                     name='country'
                     value={values.country}
                     onChange={handleOnChange}
+                    required
                 >
                     <option defaultValue value='No'>Elige un pais...</option>
                     <option value='Argentina'>Argentina</option>
@@ -83,6 +111,7 @@ const FormRegister = () => {
                     name='email'
                     value={values.email}
                     onChange={handleOnChange}
+                    required
                 />
             </Form.Group>
             <Form.Group>
@@ -92,6 +121,7 @@ const FormRegister = () => {
                     name='password'
                     value={values.password}
                     onChange={handleOnChange}
+                    required
                 />
             </Form.Group>
             <Form.Group>
@@ -101,8 +131,16 @@ const FormRegister = () => {
                     name='password2'
                     value={values.password2}
                     onChange={handleOnChange}
+                    required
                 />
             </Form.Group>
+            {!errors.email ? (null) : (<Alert variant='danger'>{errors.email}</Alert>)}
+            {!errors.password ? (null) : (<Alert variant='danger'>{errors.password}</Alert>)}
+            {!errors.password2 ? (null) : (<Alert variant='danger'>{errors.password2}</Alert>)}
+            {!errors.name ? (null) : (<Alert variant='danger'>{errors.name}</Alert>)}
+            {!errors.lastname ? (null) : (<Alert variant='danger'>{errors.lastname}</Alert>)}
+            {!errors.country ? (null) : (<Alert variant='danger'>{errors.country}</Alert>)}
+            {!errors.request ? (null) : (<Alert variant='danger'>{errors.request}</Alert>)}
             <Button className="submit-button btn" type="submit">
                 Registrarme
             </Button>

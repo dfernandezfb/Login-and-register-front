@@ -1,5 +1,5 @@
-import { useState, useContext } from 'react'
-import UserContext from './../../context/User/userContext'
+import { useState, useEffect, useContext } from 'react'
+import UserContext from '../../context/Users/userContext'
 import Form from 'react-bootstrap/Form'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -7,13 +7,21 @@ import Button from 'react-bootstrap/Button'
 import './FormEdit.css'
 
 const FormEdit = () => {
-    const {userSelected, editUser} = useContext(UserContext)
+    const { userSelected, editUser } = useContext(UserContext)
     const [values, setValues] = useState({
-        name: userSelected.name,
-        lastname: userSelected.lastname,
-        country: userSelected.country,
-        email: userSelected.email
+        name: '',
+        lastname: '',
+        country: '',
+        email: ''
     })
+    useEffect(() => {
+        setValues({
+            name: userSelected.name,
+            lastname: userSelected.lastname,
+            country: userSelected.country,
+            email: userSelected.email
+        })
+    }, [userSelected])
     const handleOnChange = (e) => {
         setValues(
             {
@@ -26,7 +34,7 @@ const FormEdit = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        editUser(userSelected._id,values)
+        editUser(userSelected._id, values)
     }
     return (
         <Form onSubmit={handleSubmit}>

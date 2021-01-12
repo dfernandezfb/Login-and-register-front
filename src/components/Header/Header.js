@@ -37,7 +37,7 @@ const Header = () => {
                 show={modalShow}
                 onHide={() => setModalShow(false)}
                 body={FormLogin}
-                modalTitle='Ingresar'
+                modaltitle='Ingresar'
             />
         </header>
     ) : (
@@ -54,8 +54,9 @@ const Header = () => {
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav" className='justify-content-end'>
                         <Nav>
+                            <Nav.Link onClick={(e)=>e.preventDefault()}> Hola {user.name}! </Nav.Link>
                             <Nav.Link> <Link to='/users' className='n-link'>Lista de usuarios</Link></Nav.Link>
-                            <Nav.Link><Link to='/users' className='n-link'>Gráficas</Link></Nav.Link>
+                            <Nav.Link><Link to='/graphs' className='n-link'>Gráficas</Link></Nav.Link>
                             <Nav.Link onClick={handleClick}>Cerrar sesión</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
