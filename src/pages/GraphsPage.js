@@ -50,8 +50,8 @@ const GraphsPage = () => {
                         title:'Cantidad de logueos en el día',
                         subtitle: days[currentlyDay]+' '+currentlyDate,
                         chartArea:{width:'100%'},
-                        colors:['#b0120a']
-                    }
+                    },
+                    colors:['#b0120a']
                 }}
                 />
             </div>
@@ -81,8 +81,8 @@ const GraphsPage = () => {
                         title:'Cantidad de registros en el día',
                         subtitle: days[currentlyDay]+' '+currentlyDate,
                         chartArea:{width:'100%'},
-                        colors:['#b0120a']
-                    }
+                    },
+                    colors:['#b0120a']
                 }}
                 />
             </div>
