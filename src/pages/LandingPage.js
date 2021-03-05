@@ -2,7 +2,7 @@ import FormRegister from './../components/FormRegister/FormRegister'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import portada from './../assets/portada.png'
+import portada from './../assets/df.png'
 import './../styles/LandingPage.css'
 const LandingPage = () => {
     return (

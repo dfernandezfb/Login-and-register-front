@@ -21,8 +21,8 @@ const GraphsPage = () => {
     return (
         <>
             <div className='ml-4 mt-4'>
-                <h3>Gráficas de logueos mensuales</h3>
-                <p>En este lugar se muestran gráficas estadisticas sobre la cantidad de logueos y la cantidad de registros por día en el último mes</p>
+                <h3>Gráficas de logueos mensuales (en desarrollo)</h3>
+                <p>En este lugar se muestran gráficas estadisticas sobre la cantidad de logueos y la cantidad de registros por día en el último mes (datos mockeados)</p>
             </div>
             <div className={`my-container`}>
                     <Chart
